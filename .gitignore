@@ -1,6 +1,7 @@
 .idea
 *.swp
+*.icloud
 
-/signals
-/signals-frontend
+/repositories/*
+!/repositories/.gitkeep
 

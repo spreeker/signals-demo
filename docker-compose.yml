@@ -24,8 +24,9 @@ services:
       UWSGI_MASTER: 1
       UWSGI_PROCESSES: 4
       UWSGI_LAZY_APPS: 1
+
   authz_admin:
-    build: https://github.com/Amsterdam/authz_admin.git
+    build: ./repositories/authz_admin/.
     command: /run.sh
     volumes:
       - ./container/authz_admin/config.yml:/app/config.yml
@@ -58,6 +59,7 @@ services:
       DB_HOST: database
       AUTHZ_ADMIN_API_KEY: apikey
       DATAPUNT_ENVIRONMENT: development
+
   authz:
     build: https://github.com/Amsterdam/authz.git
     ports:

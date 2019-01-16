@@ -1,0 +1,13 @@
+diff --git a/setup.py b/setup.py
+index cfe3242..ed07770 100755
+--- a/setup.py
++++ b/setup.py
+@@ -88,7 +88,7 @@ setup(
+         'pexpect==4.2.1',
+         'pickleshare==0.7.4',
+         'port-for==0.3.1',
+-        'prompt-toolkit==1.0.15',
++        'prompt-toolkit==2.0.7',
+         'psycopg2==2.7.3.1',
+         'psycopg2-binary==2.7.5',
+         'ptyprocess==0.5.2',
