@@ -1,0 +1,6 @@
+.idea
+*.swp
+
+/signals
+/signals-frontend
+

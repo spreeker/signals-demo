@@ -1,0 +1,94 @@
+### OAuth 2.0 service configuration file
+
+# bind-host = ""
+## Bind to host for the HTTP service (default 0.0.0.0)
+# bind-port = 8080
+## Bind to this port (default 8080)
+
+base-url = "http://localhost:8080/"
+## Base URL of the service. Defaults to http://[bind-address]/.
+
+# pprof-enabled = true
+## Enable profiler
+
+# authn-timeout = 600
+## This is how many second an end-user has to authenticate, ie between starting and finishing the authz request
+
+# trace-header-name = "X-Unique-ID"
+## Name of request race header
+
+# log-json-output = false
+## Logs are output as JSON for easier parsing
+
+[accesstoken]
+jwk-set = """
+{ "keys": [
+  {
+    "kty": "EC",
+    "key_ops": [
+      "sign"
+    ],
+    "kid": "2",
+    "crv": "P-256",
+    "x": "6r8PYwqfZbq_QzoMA4tzJJsYUIIXdeyPA27qTgEJCDw=",
+    "y": "Cf2clfAfFuuCB06NMfIat9ultkMyrMQO9Hd2H7O9ZVE=",
+    "d": "N1vu0UQUp0vLfaNeM0EDbl4quvvL6m_ltjoAXXzkI3U="
+  }
+]}
+"""
+# jwk-id = "1"
+## The key id (kid) of the JWK to use when creating access tokens. Defaults to the first key in the set.
+## JSON Web Key Set: mandatory, should be a JWKS containing HMAC and / or ECDSA keys as specified in RFC 7517 and RFC 7518 section 6
+# lifetime = 36000
+## Lifetime of access tokens
+# issuer = "http://localhost:8080/authorize"
+## Identifier of the token issuer (e.g. URI of authorizatuon endpoint)
+
+
+[redis]
+## Connection params for Redis. An empty password won't AUTH.
+# address = ":6379"
+# password = ""
+
+
+[roles]
+accounts-url = "http://authz_admin:8000/authz_admin/accounts/"
+## api-key is authz_admin_api_key_(acc|prod) in ansible-vault
+api-key = "apikey"
+
+
+[authorization]
+## Authorization configuration.
+base-url = "http://authz_admin:8000/authz_admin/"
+update-interval = 600
+
+
+[idp-datapunt]
+## IdP configuration
+base-url = "http://localhost:8088/auth/idp/login"
+## secret is refreshtoken_key_(acc|prod) in ansible-vault
+secret = "refreshsecret"
+
+
+# [idp-google]
+# client-id = "your client id"
+# client-secret = "your client secret"
+
+
+# [idp-grip]
+# tenant-id = "your tenant id"
+# client-id = "your client id"
+# client-secret = "your client secret"
+
+
+[clients]
+# OAuth 2.0 clients. Require client-id, granttype and redirects.
+
+[clients."citydata"]
+redirects = ["http://localhost:8080/"]
+granttype = "token"  # "code" | "token" | "client_credentials"
+
+[clients."sia"]
+redirects = ["http://localhost:3001/manage/incidents"]
+granttype = "token"  # "code" | "token" | "client_credentials"
+

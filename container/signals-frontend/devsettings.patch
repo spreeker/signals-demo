@@ -1,0 +1,26 @@
+From d633daef7945c91e7e9802b718373ca115c96221 Mon Sep 17 00:00:00 2001
+From: Jaap Koetsier <jaap@chariot-it.nl>
+Date: Tue, 15 Jan 2019 17:36:14 +0100
+Subject: [PATCH] Dev settings
+
+---
+ environment.conf.json | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/environment.conf.json b/environment.conf.json
+index 71228b4..ceb45dc 100644
+--- a/environment.conf.json
++++ b/environment.conf.json
+@@ -1,6 +1,6 @@
+ {
+-  "API_ROOT": "https://acc.api.data.amsterdam.nl/",
++  "API_ROOT": "http://localhost:8000/",
+   "ROOT": "http://localhost:3001/",
+-  "AUTH_ROOT": "https://acc.api.data.amsterdam.nl/",
+-  "API_ROOT_MLTOOL": "https://acc.api.data.amsterdam.nl/"
++  "AUTH_ROOT": "http://localhost:8080/",
++  "API_ROOT_MLTOOL": "http://localhost:8000/"
+ }
+-- 
+2.17.0
+
