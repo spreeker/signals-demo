@@ -2,6 +2,7 @@
 
 set -e
 set -u
+set -x
 
 . ./env.sh
 
@@ -52,9 +53,14 @@ docker-compose up -d authz
 
 print_update "Checkout and up signals"
 git clone https://github.com/Amsterdam/signals.git repositories/signals
+cd repositories/signals
+git checkout feature/demo-2019-01-24-vng
+cd ../..
 docker-compose -f repositories/signals/docker-compose.yml up -d database rabbit
+docker-compose -f repositories/signals/docker-compose.yml run --rm api /deploy/docker-wait.sh
 docker-compose -f repositories/signals/docker-compose.yml run --rm api python manage.py migrate
 docker-compose -f repositories/signals/docker-compose.yml up -d
+docker-compose -f repositories/signals/docker-compose.yml exec api python manage.py createsuperuser --username 'signals.admin@amsterdam.nl' --noinput --email 'signals.admin@amsterdam.nl'
 
 print_update "Checkout and up signals-frontend"
 git clone https://github.com/Amsterdam/signals-frontend.git repositories/signals-frontend/
@@ -63,4 +69,10 @@ cd repositories/signals-frontend
 git checkout master
 git apply devsettings.patch
 npm install
-NODE_ENV=development npm start
+NODE_ENV=development npm start &
+
+
+# Checking out ZDS
+git clone https://github.com/VNG-Realisatie/gemma-zaken.git repositories/gemma-zaken
+docker-compose -f repositories/gemma-zaken/infra/docker-compose.yml -f repositories/gemma-zaken/infra/docker-compose.hostnetwork.yml pull
+docker-compose -f repositories/gemma-zaken/infra/docker-compose.yml -f repositories/gemma-zaken/infra/docker-compose.hostnetwork.yml up -d
