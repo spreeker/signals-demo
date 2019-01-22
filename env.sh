@@ -14,12 +14,6 @@ export DEMO_USER_EMAIL=signals.admin@amsterdam.nl
 export DEMO_USER_PASS=qwerty123
 export DEMO_USER_PASS_HASH='pbkdf2_sha256$30000$fN7ya-6Hu4Xwt2p8$Ti7h47AyNYcX4Ttf4wlgX09vcJc/kPaMSgBMTn3NQ7Q='
 
-# for ZDS demo
-ZRC_UWSGI_PORT=9000
-DRC_UWSGI_PORT=9001
-ZTC_UWSGI_PORT=9002
-BRC_UWSGI_PORT=9003
-
 # SIA setup to connect to ZDS
 HOST_URL=localhost:8000
 

@@ -69,6 +69,7 @@ docker-compose -f repositories/signals/docker-compose.yml exec api python manage
 # Checking out ZDS
 if [ ! -d "repositories/gemma-zaken" ]; then
   git clone https://github.com/VNG-Realisatie/gemma-zaken.git repositories/gemma-zaken
+  cp container/gemma-zaken/.env repositories/gemma-zaken/infra/
 fi
 
 docker-compose -f repositories/gemma-zaken/infra/docker-compose.hostnetwork.yml -f repositories/gemma-zaken/infra/docker-compose.yml pull
