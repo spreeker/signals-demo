@@ -69,11 +69,11 @@ docker-compose -f repositories/signals/docker-compose.yml exec api python manage
 # Checking out ZDS
 if [ ! -d "repositories/gemma-zaken" ]; then
   git clone https://github.com/VNG-Realisatie/gemma-zaken.git repositories/gemma-zaken
-  cp container/gemma-zaken/.env repositories/gemma-zaken/infra/
+  cp container/gemma-zaken/.env .
 fi
 
-docker-compose -f repositories/gemma-zaken/infra/docker-compose.hostnetwork.yml -f repositories/gemma-zaken/infra/docker-compose.yml pull
-docker-compose -f repositories/gemma-zaken/infra/docker-compose.hostnetwork.yml -f repositories/gemma-zaken/infra/docker-compose.yml up -d
+docker-compose -f repositories/gemma-zaken/infra/docker-compose.yml -f repositories/gemma-zaken/infra/docker-compose.hostnetwork.yml pull
+docker-compose -f repositories/gemma-zaken/infra/docker-compose.yml -f repositories/gemma-zaken/infra/docker-compose.hostnetwork.yml up -d
 
 
 print_update "Checkout and up signals-frontend"
