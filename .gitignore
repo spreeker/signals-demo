@@ -4,5 +4,3 @@
 
 /repositories/*
 !/repositories/.gitkeep
-
-.env
