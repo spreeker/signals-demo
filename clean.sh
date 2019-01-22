@@ -12,5 +12,4 @@ print_update () {
 }
 
 print_update "Clear repositories"
-kill $(ps aux | grep 'node' | awk '{print $2}')
 rm -rf repositories/*
