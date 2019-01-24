@@ -1,0 +1,110 @@
+# Inspired by https://docs.docker.com/compose/django/
+
+# This is for development purposes ONLY. Do NOT run this in production with
+# the same SECRET_KEYs.
+
+version: '3.4'
+
+services:
+  # databases
+  zrc_db:
+    image: mdillon/postgis:10
+    volumes:
+      - zrc_postgres_data:/var/lib/postgresql/data
+    network_mode: host
+    command: postgres -p ${ZRC_DB_PORT:-5436}
+
+  drc_db:
+    image: postgres:10
+    volumes:
+      - drc_postgres_data:/var/lib/postgresql/data
+    network_mode: host
+    command: postgres -p ${DRC_DB_PORT:-5437}
+
+  ztc_db:
+    image: postgres:10
+    volumes:
+      - ztc_postgres_data:/var/lib/postgresql/data
+    network_mode: host
+    command: postgres -p ${ZTC_DB_PORT:-5438}
+
+  brc_db:
+    image: postgres:10
+    volumes:
+      - brc_postgres_data:/var/lib/postgresql/data
+    network_mode: host
+    command: postgres -p ${BRC_DB_PORT:-5439}
+
+  # web
+  zrc_web:
+    image: vngr/gemma-zrc:latest
+    network_mode: host
+    environment:
+      - DJANGO_SETTINGS_MODULE=zrc.conf.docker
+      - SECRET_KEY=c1zqz%y-s-$$63ca_abc8dmfjno#&pk!wy8k9f8c*4w@(whxy1n'
+      - DB_HOST=zrc_db
+      - DB_HOST=localhost
+      - DB_PORT=${ZRC_DB_PORT:-5436}
+      - UWSGI_PORT=${ZRC_UWSGI_PORT:-8000}
+    depends_on:
+      - zrc_db
+    expose:
+      - "${ZRC_UWSGI_PORT:-8000}"
+
+  drc_web:
+    image: vngr/gemma-drc:latest
+    network_mode: host
+    environment:
+      - DJANGO_SETTINGS_MODULE=drc.conf.docker
+      - SECRET_KEY=h1kluf9r2yhcfr_i!fqb!srx=!u@!^b_gdl54=h0n15j34*+#=
+      - DB_HOST=drc_db
+      - IS_HTTPS=0
+      - DB_HOST=localhost
+      - DB_PORT=${DRC_DB_PORT:-5437}
+      - UWSGI_PORT=${DRC_UWSGI_PORT:-8001}
+    volumes:
+      - drc_media:/app/media
+    depends_on:
+      - drc_db
+    expose:
+      - "${DRC_UWSGI_PORT:-8001}"
+
+  ztc_web:
+    image: vngr/gemma-ztc:latest
+    network_mode: host
+    environment:
+      - DJANGO_SETTINGS_MODULE=ztc.conf.docker
+      - SECRET_KEY=)lwxn07vp1+ru=yf^n+v4l&ij24l3vhhitw9vk4=0ix14ibmfj
+      - DB_HOST=ztc_db
+      - DB_HOST=localhost
+      - DB_PORT=${ZTC_DB_PORT:-5438}
+      - UWSGI_PORT=${ZTC_UWSGI_PORT:-8002}
+    volumes:
+      - ../dump.json:/app/src/ztc/fixtures/dump.json
+    depends_on:
+      - ztc_db
+    expose:
+      - "${ZTC_UWSGI_PORT:-8002}"
+
+  brc_web:
+    image: vngr/gemma-brc:latest
+    network_mode: host
+    environment:
+      - DJANGO_SETTINGS_MODULE=brc.conf.docker
+      - SECRET_KEY=u=y-#vjs0lw^%d13s8i=7r-880=-%5v!vmyzdoo=2go%ana4rc
+      - DB_HOST=brc_db
+      - DB_HOST=localhost
+      - DB_PORT=${BRC_DB_PORT:-5439}
+      - UWSGI_PORT=${BRC_UWSGI_PORT:-8003}
+    depends_on:
+      - brc_db
+    expose:
+      - "${BRC_UWSGI_PORT:-8003}"
+
+volumes:
+  zrc_postgres_data:
+  drc_postgres_data:
+  drc_media:
+  ztc_postgres_data:
+  brc_postgres_data:
+

@@ -8,7 +8,9 @@ set -x
 
 docker-compose up -d
 docker-compose -f repositories/signals/docker-compose.yml up -d
-docker-compose -f repositories/gemma-zaken/infra/docker-compose.yml -f repositories/gemma-zaken/infra/docker-compose.hostnetwork.yml up -d
+docker-compose -f container/gemma-zaken/docker-compose.yml up -d
+docker-compose -f repositories/gemma-zaken-demo/docker-compose.yml up -d
+
 
 cd repositories/signals-frontend
 NODE_ENV=development npm start

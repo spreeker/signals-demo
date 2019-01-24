@@ -14,6 +14,7 @@ print_update () {
 print_update "Clear repositories"
 docker-compose down
 docker-compose -f repositories/signals/docker-compose.yml down
-docker-compose -f repositories/gemma-zaken/infra/docker-compose.hostnetwork.yml -f repositories/gemma-zaken/infra/docker-compose.yml down
+docker-compose -f container/gemma-zaken/docker-compose.yml down
+docker-compose -f repositories/gemma-zaken-demo/docker-compose.yml down
 
 rm -rf repositories/*
