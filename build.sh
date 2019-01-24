@@ -108,6 +108,7 @@ if [ ! -d "repositories/gemma-zaken-demo" ]; then
   git clone https://github.com/JostCrow/gemma-zaken-demo.git repositories/gemma-zaken-demo
 fi
 
+docker-compose -f repositories/gemma-zaken-demo/docker-compose.yml run --rm web python /app/src/manage.py migrate
 docker-compose -f repositories/gemma-zaken-demo/docker-compose.yml run --rm web python /app/src/manage.py shell -c "from zac.demo.models import SiteConfiguration; config = SiteConfiguration.get_solo(); config.global_api_client_id='demo'; config.global_api_secret='demo'; config.zrc_base_url='http://localhost:9000/api/v1/'; config.zrc_client_id='demo'; config.zrc_secret='demo'; config.drc_base_url='http://localhost:9001/api/v1/'; config.drc_client_id='demo'; config.drc_secret='demo'; config.ztc_base_url='http://localhost:9002/api/v1/'; config.ztc_client_id='demo'; config.ztc_secret='demo'; config.ztc_catalogus_uuid='7c37e152-1447-448e-8ada-4bf0784f83db'; config.save()" || echo "already done"
 docker-compose -f repositories/gemma-zaken-demo/docker-compose.yml pull
 
