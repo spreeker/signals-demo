@@ -1,4 +1,4 @@
-*Currently unmainted
+*Currently unmainted*
 
 # Signals local environment
 This repository contains everything to run the Signals [project][signals_repo] locally. Besides
