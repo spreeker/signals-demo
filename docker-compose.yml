@@ -74,6 +74,6 @@ services:
   signals-frontend:
     build: ./repositories/signals-frontend
     ports:
-      - "3001:3001"
+      - "3001:80"
     environment:
       NODE_ENV: development
