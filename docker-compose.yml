@@ -70,3 +70,10 @@ services:
     volumes:
       - ./container/authz/config.toml:/etc/config.toml
     entrypoint: authz -config=/etc/config.toml
+
+  signals-frontend:
+    build: ./repositories/signals-frontend
+    ports:
+      - "3001:3001"
+    environment:
+      NODE_ENV: development
