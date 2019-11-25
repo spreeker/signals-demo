@@ -13,13 +13,13 @@ print_update () {
   echo -e "${YELLOW}$1${NOCOLOR}"
 }
 
-print_update "Clear repositories"
-rm -rf repositories/*
-git clone https://github.com/Amsterdam/authz_admin.git repositories/authz_admin
-cp container/authz_admin/prompt-toolkit.patch repositories/authz_admin/
-cd repositories/authz_admin
+#print_update "Clear repositories"
+##rm -rf repositories/*
+#git clone https://github.com/Amsterdam/authz_admin.git repositories/authz_admin
+#cp container/authz_admin/prompt-toolkit.patch repositories/authz_admin/
+#cd repositories/authz_admin
 # git apply prompt-toolkit.patch
-cd ../..
+#cd ../..
 
 print_update "Up database"
 docker-compose up -d database
