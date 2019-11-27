@@ -6,18 +6,18 @@ set -x
 
 . ./env.sh
 
-print_update "Clear repositories"
+# print_update "Clear repositories"
 ##rm -rf repositories/*
 
-print_update "Collect and patch all source"
+print_update "Collect authz sources"
 # Authz admin
-#git clone https://github.com/Amsterdam/authz_admin.git repositories/authz_admin
+git clone https://github.com/Amsterdam/authz_admin.git repositories/authz_admin
 #cp container/authz_admin/prompt-toolkit.patch repositories/authz_admin/
 #cd repositories/authz_admin
 #cd ../..
 
 # signals-frontend
-# git clone https://github.com/Amsterdam/signals-frontend.git repositories/signals-frontend/
+#git clone https://github.com/Amsterdam/signals-frontend.git repositories/signals-frontend/
 # cp container/signals-frontend/devsettings.patch repositories/signals-frontend/
 # cd repositories/signals-frontend
 # git checkout master
@@ -25,7 +25,7 @@ print_update "Collect and patch all source"
 # cd ../..
 
 # signals backend
-git clone https://github.com/Amsterdam/signals.git repositories/signals
+#git clone https://github.com/Amsterdam/signals.git repositories/signals
 
 # shut down all running services
 #docker-compose down

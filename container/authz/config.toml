@@ -89,6 +89,9 @@ redirects = ["http://localhost:8080/"]
 granttype = "token"  # "code" | "token" | "client_credentials"
 
 [clients."sia"]
-redirects = ["http://localhost:3001/manage/incidents"]
+redirects = [
+	"http://localhost:3001/manage/incidents",
+	"http://127.0.0.1:3001/manage/incidents",
+]
 granttype = "token"  # "code" | "token" | "client_credentials"
 

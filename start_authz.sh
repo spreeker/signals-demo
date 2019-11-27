@@ -37,6 +37,4 @@ print_update "Wait for authz_admin"
 docker-compose exec authz_admin /authz_admin-wait.sh
 
 print_update "Up authz"
-docker-compose up -d authz
-
-
+docker-compose up authz

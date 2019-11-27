@@ -20,5 +20,3 @@ NOCOLOR='\033[0m'
 print_update () {
   echo -e "${YELLOW}$1${NOCOLOR}"
 }
-
-
